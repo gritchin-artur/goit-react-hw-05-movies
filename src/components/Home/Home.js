@@ -1,7 +1,7 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { HomeApi } from "components/fetch/fetch";
-import { Li, LinkStyle, Ul } from "./Home.styled";
+import { LinkStyle, Ul } from "./Home.styled";
 
 function Home() {
   const [movies, setMovies] = useState([]);
