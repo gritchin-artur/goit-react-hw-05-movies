@@ -1,7 +1,6 @@
 import { MovieCastApi } from "components/fetch/fetch";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import propTypes from "prop-types";
 import { H3, Img, Li, P, Ul } from "./Cast.styled";
 
 const Cast = () => {
