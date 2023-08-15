@@ -90,5 +90,3 @@ export const Li = styled(Link)`
   &:focus {
     color: rgb(255, 178, 35);
 `;
-
-// margin: 40p;
