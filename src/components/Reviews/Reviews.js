@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { MovieReviewsApi } from "../fetch/fetch";
 import { useParams } from "react-router-dom";
-import propTypes from "prop-types";
 import { Ul } from "./Reviews.styled";
 
 const Reviews = () => {
@@ -36,4 +35,5 @@ const Reviews = () => {
     </div>
   );
 };
+
 export default Reviews;
