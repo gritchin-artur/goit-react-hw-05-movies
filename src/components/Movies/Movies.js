@@ -1,36 +1,40 @@
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { MovieApi } from "components/fetch/fetch";
-import { Button, Form, Input, Ul } from "./Movies.styled";
-import { LinkStyle } from "components/Home/Home.styled";
+import { movieApi } from "services/fetch";
+import { Button, Form, Input } from "./Movies.styled";
+import MovieList from "components/MovieList/MovieList";
 
 function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [list, setList] = useState([]);
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const movieName = searchParams.get("movie") ?? "";
   const [movie, setMovie] = useState("");
 
-  const location = useLocation();
+  // const location = useLocation();
 
   useEffect(() => {
+    setLoading(true);
     const fetchTrendingMovies = () => {
-      MovieApi(movieName)
+      movieApi(movieName)
         .then((results) => {
           setList(results);
+          setError(null);
         })
         .catch((error) => {
           setError("Ooops. Something went wrong...");
           console.log(error);
-        });
+        })
+        .finally(() => setLoading(false));
     };
     fetchTrendingMovies();
   }, [movieName]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSearchParams({ movie: movie });
+    setSearchParams({ movie });
   };
 
   const handleChange = (e) => {
@@ -52,19 +56,8 @@ function Movies() {
         <Button type="submit">Search</Button>
       </Form>
       {error && <div>{error}</div>}
-      {list && (
-        <div>
-          <Ul>
-            {list.map(({ title, id }) => (
-              <li key={id}>
-                <LinkStyle to={`/movies/${id}`} state={{ from: location }}>
-                  {title}
-                </LinkStyle>
-              </li>
-            ))}
-          </Ul>
-        </div>
-      )}
+      {loading && "Loading ..."}
+      {list && <MovieList list={list} />}
     </div>
   );
 }

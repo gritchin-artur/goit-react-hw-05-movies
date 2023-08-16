@@ -7,7 +7,7 @@ export const Ul = styled.ul`
   display: grid;
 `;
 
-export const LinkStyle = styled(Link)`
+export const Li = styled(Link)`
   color: black;
   font-size: 20px;
   font-weight: 600;
@@ -15,5 +15,4 @@ export const LinkStyle = styled(Link)`
   &:hover,
   &:focus {
     color: rgb(255, 178, 35);
-  }
 `;

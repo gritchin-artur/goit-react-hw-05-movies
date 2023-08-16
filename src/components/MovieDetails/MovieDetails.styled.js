@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-export const Button = styled.button`
+export const LinkStyle = styled(Link)`
   display: inline-block;
   box-sizing: border-box;
   padding: 0 25px;
@@ -51,6 +51,10 @@ export const Img = styled.img`
   height: 350px;
 `;
 
+export const H2 = styled.h2`
+  font-size: 35px;
+`;
+
 export const H3 = styled.h3`
   font-size: 25px;
 `;
@@ -62,6 +66,11 @@ export const P = styled.p`
 export const Ul = styled.ul`
   list-style: none;
   display: flex;
+`;
+
+export const DivGenres = styled.div`
+  display: flex;
+  gap: 15px;
 `;
 
 export const Navigation = styled(NavLink)`

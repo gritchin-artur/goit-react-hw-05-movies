@@ -1,23 +1,24 @@
-import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { HomeApi } from "components/fetch/fetch";
-import { LinkStyle, Ul } from "./Home.styled";
+import { homeApi } from "services/fetch";
+import MovieList from "components/MovieList/MovieList";
 
 function Home() {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
-
-  const location = useLocation();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setError(true);
     const fetchTrendingMovies = () => {
-      HomeApi()
+      homeApi()
         .then((results) => {
           setMovies(results);
+          setError(null);
         })
         .catch((error) => {
           setError("Ooops. Something went wrong...");
-        });
+        })
+        .finally(() => setLoading(false));
     };
     fetchTrendingMovies();
   }, []);
@@ -25,15 +26,8 @@ function Home() {
   return (
     <div>
       {error && <div>{error}</div>}
-      <Ul>
-        {movies.map(({ title, id }) => (
-          <li key={id}>
-            <LinkStyle to={`/movies/${id}`} state={{ from: location }}>
-              {title}
-            </LinkStyle>
-          </li>
-        ))}
-      </Ul>
+      {loading && "Loading ..."}
+      {movies && <MovieList list={movies} />}
     </div>
   );
 }
